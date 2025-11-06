@@ -23,4 +23,7 @@ const orco6 = new Orco(fuerza=12, inteligencia=3, rol=guerrero)
 const aldea1 = new Aldea(tamaño=20, personajes=[humano1, humano2, humano3])
 const ciudad1 = new CiudadGrande(personajes=[humano4, humano5, humano6, humano7, humano8])
 
-const ejercitoInvasor1 = new EjercitoInvasor(personajes=[orco1, orco2,orco3, orco4, orco5, orco6])
+const ejercitoInvasor1 = new EjercitoInvasor(personajes=[orco1, orco2, orco3, orco4, orco5, orco6])
+
+// ejercitoInvasor1.atacar(aldea1)
+// humano1.domar(mascota1)

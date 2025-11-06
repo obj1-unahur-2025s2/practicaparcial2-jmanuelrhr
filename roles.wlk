@@ -1,21 +1,20 @@
 import razas.*
 
 class Rol {
-  method potencialExtra(personaje)
-  method esGroso(personaje)
+  method potencialFinal(unPersonaje)
+  method esGroso(unPersonaje)
 }
 
 object guerrero inherits Rol{
-  override method potencialExtra(personaje) = 100
-
-  override method esGroso(personaje) = personaje.fuerza() > 50
+  override method potencialFinal(unPersonaje) = (unPersonaje.fuerza() * 10 ) + 100
+  override method esGroso(unPersonaje) = unPersonaje.fuerza() > 50
 }
 
 object cazador inherits Rol{
   method puedenTenerMascota() = true
 
-  override method potencialExtra(personaje){
-    const mascotaDePersonaje = personaje.mascota()
+  override method potencialFinal(unPersonaje){
+    const mascotaDePersonaje = unPersonaje.mascota()
 
     if(!mascotaDePersonaje.tieneGarras()){ 
        return mascotaDePersonaje.fuerza()
@@ -24,17 +23,19 @@ object cazador inherits Rol{
     }
   }
 
-  override method esGroso(personaje) = personaje.mascota().esLongeva()
+  override method esGroso(unPersonaje) = unPersonaje.mascota().esLongeva()
 }
 
 object brujo inherits Rol{
-  override method potencialExtra(personaje){
-    if(personaje != Orco){
-       return
-    } else {
-       return personaje.potencialOfensivo() * 0.1 
+  override method potencialFinal(unPersonaje){
+    var potencial = (unPersonaje.fuerza() * 10 )
+
+    if(!unPersonaje.esInteligente()){
+       potencial += potencial * 0.1 
     }
+
+    return potencial
   }
 
-  override method esGroso(personaje) = true
+  override method esGroso(unPersonaje) = true
 }

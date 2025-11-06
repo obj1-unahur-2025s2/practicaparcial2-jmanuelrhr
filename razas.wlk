@@ -17,14 +17,14 @@ class Personaje{
   
   }
 
-  method domarAnimalSalvaje(unaMascota){
+  method domar(unaMascota){
     if(self.rol().puedenTenerMascota()){
       mascota = unaMascota
     }
   }
 
   method potencialOfensivo(){
-    return (fuerza * 10) + rol.potencialExtra(self)
+    return (rol.potencialFinal(self))
   }
 
   method esInteligente()

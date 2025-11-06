@@ -10,10 +10,11 @@ class Localidad{
     }
   }
 
+  const property ejercitoDefensivo = personajes 
+
   method potencialOfensivoEjercito(){
-    return (personajes.count({
-        p => p.potencialOfensivo()
-    }) + potencialOfensivoPorDefecto)
+    return (personajes.fold(0, {acum, p => acum + p.potencialOfensivo()}) 
+    + potencialOfensivoPorDefecto)
   }
 
   method serDesalojada(ejercitoInvasor)
@@ -46,17 +47,19 @@ class CiudadGrande inherits Localidad{
 class EjercitoInvasor{
     const property personajes
 
-    method potencialOfensivo(){
-      return (personajes.count({
-       p => p.potencialOfensivo()
-      }))
+    const property potencialOfensivo = personajes.sum({ p => p.potencialOfensivo() })
+
+    method esSuperiorAlaDe(unaLocalidad){
+        return(potencialOfensivo > unaLocalidad.potencialOfensivoEjercito())
     }
 
-    method atacarA(unaLocalidad){
-        if(self.potencialOfensivo() < unaLocalidad.potencialOfensivoEjercito() and unaLocalidad.noTieneLimiteDeHabitantes()){
+    method atacar(unaLocalidad){
+        if(self.esSuperiorAlaDe(unaLocalidad)){
+            unaLocalidad.serDesalojada(personajes)
+        } else if(self.esSuperiorAlaDe(unaLocalidad) and unaLocalidad.noTieneLimiteDeHabitantes()) {
             unaLocalidad.potencialOfensivoPorDefecto() + 300
         } else {
-            unaLocalidad.serDesalojada(personajes)
+            return
         }
     }
 }
