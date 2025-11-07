@@ -11,32 +11,42 @@ class Localidad{
   }
 
   const property ejercitoDefensivo = personajes 
+  const property tamaño // metros cuadrados
 
-  method serDesalojada(ejercitoInvasor)
+  method ordenarElemento(e, eSig){
+    const lista = []
+
+    if(e.potencialOfensivo() > eSig.potencialOfensivo()){
+        lista.add(e)
+    } else {
+        lista.add(eSig)
+    }
+  }
+
+  method serDesalojada(ejercitoInvasor){
+    if(ejercitoInvasor.size() > tamaño){
+        personajes = ejercitoInvasor.take(10)
+    } else {
+        personajes = ejercitoInvasor
+    }
+  }
 }
 
 class Aldea inherits Localidad{
     method noTieneLimiteDeHabitantes() = false
-    const property tamaño // metros cuadrados
-    const capacidadMaximaHabitantes = tamaño.div(personajes.size() / 2)
+    const capacidadMaximaHabitantes = tamaño*2
 
     override method agregarPersonaje(unPersonaje){
         if(!personajes.contains(unPersonaje) and personajes.size() <= capacidadMaximaHabitantes){
           personajes.add(unPersonaje)
         }
     }
-    
-    override method serDesalojada(ejercitoInvasor){
-        personajes = ejercitoInvasor
-    }
+
+    method aumentarPotencialPorDefecto(){}
 }
 
 class CiudadGrande inherits Localidad{
     method noTieneLimiteDeHabitantes() = true
-
-    override method serDesalojada(ejercitoInvasor){
-        personajes = ejercitoInvasor
-    }
 
     var potencialPorDefecto = 0
 
@@ -59,7 +69,7 @@ class EjercitoInvasor{
     method atacar(unaLocalidad){
         if(self.esSuperiorAlaDe(unaLocalidad)){
             unaLocalidad.serDesalojada(personajes)
-        } else if(!self.esSuperiorAlaDe(unaLocalidad) and unaLocalidad.noTieneLimiteDeHabitantes()) {
+        } else {
             unaLocalidad.aumentarPotencialPorDefecto()
         }
     }

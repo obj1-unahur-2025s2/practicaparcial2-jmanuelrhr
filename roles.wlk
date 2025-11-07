@@ -6,11 +6,15 @@ class Rol {
 }
 
 object guerrero inherits Rol{
+
+  method puedenTenerMascota() = false
+
   override method potencialFinal(unPersonaje) = (unPersonaje.fuerza() * 10 ) + 100
   override method esGroso(unPersonaje) = unPersonaje.fuerza() > 50
 }
 
 object cazador inherits Rol{
+
   method puedenTenerMascota() = true
 
   override method potencialFinal(unPersonaje){
@@ -27,6 +31,9 @@ object cazador inherits Rol{
 }
 
 object brujo inherits Rol{
+
+  method puedenTenerMascota() = false
+
   override method potencialFinal(unPersonaje){
     var potencial = (unPersonaje.fuerza() * 10 )
 
