@@ -13,16 +13,6 @@ class Localidad{
   const property ejercitoDefensivo = personajes 
   const property tamaño // metros cuadrados
 
-  method ordenarElemento(e, eSig){
-    const lista = []
-
-    if(e.potencialOfensivo() > eSig.potencialOfensivo()){
-        lista.add(e)
-    } else {
-        lista.add(eSig)
-    }
-  }
-
   method serDesalojada(ejercitoInvasor){
     if(ejercitoInvasor.size() > tamaño){
         personajes = ejercitoInvasor.take(10)
@@ -74,3 +64,4 @@ class EjercitoInvasor{
         }
     }
 }
+
