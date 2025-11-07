@@ -13,12 +13,12 @@ const humano8 = new Humano(fuerza=6, inteligencia=10, rol=brujo)
 
 const mascota1 = new Mascota(fuerza=3, edad=11, tieneGarras=true)
 
-const orco1 = new Orco(fuerza=10, inteligencia=3, rol=guerrero)
-const orco2 = new Orco(fuerza=9, inteligencia=6, rol=brujo)
-const orco3 = new Orco(fuerza=11, inteligencia=4, rol=guerrero)
-const orco4 = new Orco(fuerza=8, inteligencia=5, rol=brujo)
-const orco5 = new Orco(fuerza=11, inteligencia=4, rol=guerrero)
-const orco6 = new Orco(fuerza=12, inteligencia=3, rol=guerrero)
+const orco1 = new Orco(fuerza=1, inteligencia=3, rol=guerrero)
+const orco2 = new Orco(fuerza=2, inteligencia=6, rol=brujo)
+const orco3 = new Orco(fuerza=1, inteligencia=4, rol=guerrero)
+const orco4 = new Orco(fuerza=1, inteligencia=5, rol=brujo)
+const orco5 = new Orco(fuerza=1, inteligencia=4, rol=guerrero)
+const orco6 = new Orco(fuerza=2, inteligencia=3, rol=guerrero)
 
 const aldea1 = new Aldea(tamaño=20, personajes=[humano1, humano2, humano3])
 const ciudad1 = new CiudadGrande(personajes=[humano4, humano5, humano6, humano7, humano8])

@@ -17,9 +17,9 @@ object cazador inherits Rol{
     const mascotaDePersonaje = unPersonaje.mascota()
 
     if(!mascotaDePersonaje.tieneGarras()){ 
-       return mascotaDePersonaje.fuerza()
+      return mascotaDePersonaje.fuerza()
     } else {
-       return mascotaDePersonaje.fuerza() * 2
+      return mascotaDePersonaje.fuerza() * 2
     }
   }
 

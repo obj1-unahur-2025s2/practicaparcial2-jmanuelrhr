@@ -2,7 +2,7 @@
 class Localidad{
   var property personajes 
 
-  var property potencialOfensivoPorDefecto = 0
+  method potencialOfensivo() = personajes.fold(0, {acum, p => acum + p.potencialOfensivo()})
 
   method agregarPersonaje(unPersonaje){
     if(!personajes.contains(unPersonaje)){
@@ -11,11 +11,6 @@ class Localidad{
   }
 
   const property ejercitoDefensivo = personajes 
-
-  method potencialOfensivoEjercito(){
-    return (personajes.fold(0, {acum, p => acum + p.potencialOfensivo()}) 
-    + potencialOfensivoPorDefecto)
-  }
 
   method serDesalojada(ejercitoInvasor)
 }
@@ -42,6 +37,14 @@ class CiudadGrande inherits Localidad{
     override method serDesalojada(ejercitoInvasor){
         personajes = ejercitoInvasor
     }
+
+    var potencialPorDefecto = 0
+
+    method aumentarPotencialPorDefecto(){
+        potencialPorDefecto += 300 
+    }
+
+    override method potencialOfensivo() = super() + potencialPorDefecto
 }
 
 class EjercitoInvasor{
@@ -50,16 +53,14 @@ class EjercitoInvasor{
     const property potencialOfensivo = personajes.sum({ p => p.potencialOfensivo() })
 
     method esSuperiorAlaDe(unaLocalidad){
-        return(potencialOfensivo > unaLocalidad.potencialOfensivoEjercito())
+        return(potencialOfensivo > unaLocalidad.potencialOfensivo())
     }
 
     method atacar(unaLocalidad){
         if(self.esSuperiorAlaDe(unaLocalidad)){
             unaLocalidad.serDesalojada(personajes)
-        } else if(self.esSuperiorAlaDe(unaLocalidad) and unaLocalidad.noTieneLimiteDeHabitantes()) {
-            unaLocalidad.potencialOfensivoPorDefecto() + 300
-        } else {
-            return
+        } else if(!self.esSuperiorAlaDe(unaLocalidad) and unaLocalidad.noTieneLimiteDeHabitantes()) {
+            unaLocalidad.aumentarPotencialPorDefecto()
         }
     }
 }
