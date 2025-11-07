@@ -13,9 +13,13 @@ class Localidad{
   const property ejercitoDefensivo = personajes 
   const property tamaño // metros cuadrados
 
+  method dejarInvasoresEnLocalidad(listaInvasores)
+
   method serDesalojada(ejercitoInvasor){
     if(ejercitoInvasor.size() > tamaño){
-        personajes = ejercitoInvasor.take(10)
+        const listaInvasores = ejercitoInvasor.sortedBy({ p, pSig => p.potencialOfensivo() > pSig.potencialOfensivo() }) 
+
+        self.dejarInvasoresEnLocalidad(listaInvasores)
     } else {
         personajes = ejercitoInvasor
     }
@@ -33,6 +37,11 @@ class Aldea inherits Localidad{
     }
 
     method aumentarPotencialPorDefecto(){}
+
+    override method dejarInvasoresEnLocalidad(listaInvasores){
+      personajes = listaInvasores.take(capacidadMaximaHabitantes)
+      EjercitoInvasor.sacarPersonajes(listaInvasores, (listaInvasores.size() - capacidadMaximaHabitantes))
+    }
 }
 
 class CiudadGrande inherits Localidad{
@@ -45,10 +54,15 @@ class CiudadGrande inherits Localidad{
     }
 
     override method potencialOfensivo() = super() + potencialPorDefecto
+
+    override method dejarInvasoresEnLocalidad(listaInvasores){
+      personajes = listaInvasores.take(10)
+      EjercitoInvasor.sacarPersonajes(listaInvasores, 10)
+    }
 }
 
 class EjercitoInvasor{
-    const property personajes
+    var property personajes
 
     const property potencialOfensivo = personajes.sum({ p => p.potencialOfensivo() })
 
@@ -63,5 +77,9 @@ class EjercitoInvasor{
             unaLocalidad.aumentarPotencialPorDefecto()
         }
     }
-}
 
+    method sacarPersonajes(listaInvasores, cantidad){
+      personajes = listaInvasores
+      personajes = listaInvasores.drop(cantidad)
+    }
+}
